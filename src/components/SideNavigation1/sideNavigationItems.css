@@ -1,0 +1,11 @@
+ul{
+    display: flex;
+    flex-direction:column;
+    flex-wrap: wrap;
+    
+}
+ul li{
+    color: black;
+    cursor: pointer;
+    text-decoration: none;
+}
