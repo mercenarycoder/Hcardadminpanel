@@ -34,3 +34,8 @@
   position: relative;
   padding: 1.5em 0;
 }
+
+.input-toggle{
+  width: auto;
+  padding-right:10px;
+}

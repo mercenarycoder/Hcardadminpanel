@@ -2,10 +2,38 @@ import React, { Component } from "react";
 import { NavLink } from 'react-router-dom';
 import Input from '../../components/Input/Input';
 import Button from '../../components/Button/Button';
+import {connect} from 'react-redux';
 
 class Register extends Component {
     state = {
         orderForm: {
+            fname: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: ''
+                },
+                label: 'First Name',
+                value: '',
+                validation: {
+                    required: true
+                },
+                valid: false,
+                touched: false
+            },lname: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: ''
+                },
+                label: 'Last Name',
+                value: '',
+                validation: {
+                    required: true
+                },
+                valid: false,
+                touched: false
+            },
             email: {
                 elementType: 'input',
                 elementConfig: {
@@ -21,19 +49,70 @@ class Register extends Component {
                 valid: false,
                 touched: false
             },
-            password: {
-                elementType: 'input',
+            // password: {
+            //     elementType: 'input',
+            //     elementConfig: {
+            //         type: 'password',
+            //         placeholder: ''
+            //     },
+            //     label: 'Password',
+            //     value: '',
+            //     validation: {
+            //         required: true,
+            //         minLength:8,
+            //         maxLength:16
+            //     },
+            //     valid: false,
+            //     touched: false
+            // },
+            // cpassword: {
+            //     elementType: 'input',
+            //     elementConfig: {
+            //         type: 'password',
+            //         placeholder: ''
+            //     },
+            //     label: 'Confirm Password',
+            //     value: '',
+            //     validation: {
+            //         required: true,
+            //         minLength:8,
+            //         maxLength:16
+            //     },
+            //     valid: false,
+            //     touched: false
+            // },
+            userType: {
+                elementType: 'select',
                 elementConfig: {
-                    type: 'password',
+                    options: [
+                        {value: 'doctor', displayValue: 'Doctor'},
+                        {value: 'corporate', displayValue: 'Corporate'}
+                    ]
+                },
+                value: 'doctor',
+                validation: {},
+                valid: true
+            },
+            filetype:{
+                elementType:'file',
+                elementConfig:{
+                    type: 'file',
                     placeholder: ''
                 },
-                label: 'Password',
-                value: '',
-                validation: {
-                    required: true
+                label:'Choose a verification file',
+                value:'',
+                validation:{},
+                touched:false
+            },
+            checkType:{
+                elementType:'checkbox',
+                elementConfig:{
+
                 },
-                valid: false,
-                touched: false
+                label:'',
+                value:'',
+                validation:{},
+                touched:false
             }
         },
         formIsValid: false
@@ -124,7 +203,7 @@ class Register extends Component {
                         touched={formElement.config.touched}
                         changed={(event) => this.inputChangedHandler(event, formElement.id)} />
                 ))}
-                <Button disabled={!this.state.formIsValid}>Login to account</Button>
+                <Button disabled={!this.state.formIsValid}>Register Yourself</Button>
             </form>
         );
         return (
@@ -137,12 +216,18 @@ class Register extends Component {
                     </div>
                     <div className="login-box-login">
                         <h1>Create Your Headth Account</h1>
-
-        <form action="#">
+            {form}
+        {/* <form action="#">
         <div className="row">
-            <p className="col-md-6"><label htmlFor="first-name"> First Name</label><input type="text" name="first-name" className="" /></p>
+            <p className="col-nmd-6">
+                <label htmlFor="first-name"> First Name</label>
+                <input type="text" name="first-name" className="" />
+            </p>
 
-            <p className="col-md-6"><label for="last-name"> Last Name</label><input type="email" name="last-name" className="" /></p>
+            <p className="col-md-6">
+                <label for="last-name"> Last Name</label>
+                <input type="email" name="last-name" className="" />
+            </p>
         </div>                
         <div class="row">
             <p class="col-md-12"> <label for="email"> E-Mail</label>
@@ -185,7 +270,7 @@ class Register extends Component {
             <div>
         <NavLink to="index.html"> <input type="button" value="Sign me up" className="btnn" /></NavLink>
             </div>
-        </form>
+        </form> */}
         </div>
         </div>
         <div className="login-box-quotebox">
@@ -200,4 +285,16 @@ class Register extends Component {
     }
 }
 
-export default Register;
+const mapStatetoProps=state=>{
+    return{
+
+    }
+}
+
+const mapDispatchtoProps=dispatch=>{
+    return{
+
+    }
+}
+
+export default connect(mapStatetoProps,mapDispatchtoProps)(Register);

@@ -1,4 +1,5 @@
 import React from 'react';
+import {NavLink} from 'react-router-dom';
 
 import  './Input.css';
 
@@ -45,6 +46,27 @@ const input = ( props ) => {
                     ))}
                 </select>
             );
+            break;
+        case ('file'):
+            inputElement=(
+                <input className={inputClasses.join(' ')}
+                    value={props.value}
+                    onChange={props.changed} 
+                    {...props.elementConfig}
+                    />
+                    );
+            break;
+        case ('checkbox'):
+            inputElement=(
+                <div>
+                <input 
+                    className='input-toggle'
+                    value={props.value}
+                    onChange={props.changed}
+                    {...props.elementConfig} 
+                /><span className="info">Do you agree to the <NavLink to="#">terms and conditions?</NavLink></span>
+                </div>
+            );                
             break;
         default:
             inputElement = <input

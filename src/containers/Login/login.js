@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 import './login.css';
-import { NavLink } from 'react-router-dom';
+import {connect} from 'react-redux';
+import { NavLink,Redirect } from 'react-router-dom';
 import Input from '../../components/Input/Input';
 import Button from '../../components/Button/Button';
+import * as actions from '../../store/Action/index';
+
 // import 
 
 class Login extends Component {
@@ -32,7 +35,9 @@ class Login extends Component {
         label: 'Password',
         value: '',
         validation: {
-          required: true
+          required: true,
+          minLength:8,
+          maxLength:16
         },
         valid: false,
         touched: false
@@ -47,12 +52,17 @@ class Login extends Component {
     for (let formElementIdentifier in this.state.orderForm) {
       formData[formElementIdentifier] = this.state.orderForm[formElementIdentifier].value;
     }
-    const auth = {
-      // ingredients: this.props.ings,
-      // price: this.props.price,
-      orderData: formData
-    }
+    
     console.log('working fine');
+    if(this.state.formIsValid)
+    {
+      console.log('executed it');
+      this.props.logger(this.state.orderForm.email.value,this.state.orderForm.password.value);
+    }
+    else
+    {
+      console.log('form is invalid');
+    }
     // this.props.onOrderBurger(order);
   }
   checkValidity(value, rules) {
@@ -129,6 +139,20 @@ class Login extends Component {
         <Button disabled={!this.state.formIsValid}>Login to account</Button>
       </form>
     );
+    let msg=(<div>
+
+    </div>);
+    if(this.props.msg)
+    {
+      msg=(<div>
+        <h3>{this.props.msg}</h3>
+      </div>)
+    }
+    if(this.props.token!==null)
+    {
+      console.log('getting here');
+      form=<Redirect to='/'/>
+    }
     return (
       <div className='login'>
         <div className="login-box">
@@ -139,6 +163,7 @@ class Login extends Component {
             </div>
             <div className="login-box-login">
               <h1>Welcome to Headth</h1>
+              {msg}
               {form}
             </div>
           </div>
@@ -153,4 +178,17 @@ class Login extends Component {
   }
 }
 
-export default Login;
+const mapStatetoProps=state=>{
+  return{
+    msg:state.reducer1.msg,
+    token:state.reducer1.token
+  }
+}
+
+const mapDispatchtoProps=dispatch=>{
+  return{
+    logger:(email,password)=>{dispatch(actions.login(email,password))}
+  }
+}
+
+export default connect(mapStatetoProps,mapDispatchtoProps)(Login);
