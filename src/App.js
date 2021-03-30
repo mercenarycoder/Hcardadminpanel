@@ -6,14 +6,16 @@ import React, { Component } from 'react';
 // importing the base container pages
 import Login from './containers/Login/login';
 import Register from './containers/Register/register';
+import Logout from './containers/Logout/Logout';
 import Dashboard from './containers/Dashboard/dashboard';
 import * as action from './store/Action/index';
 // import {Redirect,Switch} from 'react-router-dom';
 import { connect } from 'react-redux';
 
+
 class App extends Component {
   componentDidMount() {
-    // this.props.checkAuth();
+    this.props.checkAuth();
   }
   render() {
     let routes = (
@@ -38,6 +40,7 @@ class App extends Component {
           <Route path='/login' component={Login} />
           <Route path='/register' component={Register} />
           <Route path='/' component={Dashboard} exact/>
+          <Route path='/logout' component={Logout}/>
           <Redirect to='/login'/>
         </Switch>
       </div>
@@ -55,5 +58,5 @@ const mapDispatchProps = dispatch => {
     checkAuth: () => dispatch(action.checkAuth())
   }
 }
-// export default withRouter(connect(mapStatetoProps, mapDispatchProps)(App));
-export default App;
+export default withRouter(connect(mapStatetoProps, mapDispatchProps)(App));
+// export default App;

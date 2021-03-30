@@ -190,7 +190,7 @@ class Register extends Component {
             });
         }
         let form = (
-            <form onSubmit={this.orderHandler}>
+            <form onSubmit={this.orderHandler} encType='multipart/form-data'>
                 {formElementsArray.map(formElement => (
                     <Input
                         key={formElement.id}

@@ -150,7 +150,7 @@ class Login extends Component {
     }
     if(this.props.token!==null)
     {
-      console.log('getting here');
+      console.log('getting here ',this.props.token);
       form=<Redirect to='/'/>
     }
     return (
