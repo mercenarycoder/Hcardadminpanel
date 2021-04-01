@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import Input from '../../components/Input/Input';
 import Button from '../../components/Button/Button';
 import {connect} from 'react-redux';
+import './register.css';
 
 class Register extends Component {
     state = {
