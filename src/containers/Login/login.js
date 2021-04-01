@@ -148,7 +148,7 @@ class Login extends Component {
         <h3>{this.props.msg}</h3>
       </div>)
     }
-    if(this.props.token!==null)
+    if(this.props.token!==null && this.props.token.length>10)
     {
       console.log('getting here ',this.props.token);
       form=<Redirect to='/'/>

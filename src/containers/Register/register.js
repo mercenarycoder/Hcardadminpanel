@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import { NavLink } from 'react-router-dom';
+import { NavLink,Redirect } from 'react-router-dom';
 import Input from '../../components/Input/Input';
 import Button from '../../components/Button/Button';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import './register.css';
+import * as actions from '../../store/Action/index';
 
 class Register extends Component {
     state = {
@@ -21,7 +22,7 @@ class Register extends Component {
                 },
                 valid: false,
                 touched: false
-            },lname: {
+            }, lname: {
                 elementType: 'input',
                 elementConfig: {
                     type: 'text',
@@ -50,70 +51,70 @@ class Register extends Component {
                 valid: false,
                 touched: false
             },
-            // password: {
-            //     elementType: 'input',
-            //     elementConfig: {
-            //         type: 'password',
-            //         placeholder: ''
-            //     },
-            //     label: 'Password',
-            //     value: '',
-            //     validation: {
-            //         required: true,
-            //         minLength:8,
-            //         maxLength:16
-            //     },
-            //     valid: false,
-            //     touched: false
-            // },
-            // cpassword: {
-            //     elementType: 'input',
-            //     elementConfig: {
-            //         type: 'password',
-            //         placeholder: ''
-            //     },
-            //     label: 'Confirm Password',
-            //     value: '',
-            //     validation: {
-            //         required: true,
-            //         minLength:8,
-            //         maxLength:16
-            //     },
-            //     valid: false,
-            //     touched: false
-            // },
+            password: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'password',
+                    placeholder: ''
+                },
+                label: 'Password',
+                value: '',
+                validation: {
+                    required: true,
+                    minLength: 8,
+                    maxLength: 16
+                },
+                valid: false,
+                touched: false
+            },
+            cpassword: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'password',
+                    placeholder: ''
+                },
+                label: 'Confirm Password',
+                value: '',
+                validation: {
+                    required: true,
+                    minLength: 8,
+                    maxLength: 16
+                },
+                valid: false,
+                touched: false
+            },
             userType: {
                 elementType: 'select',
                 elementConfig: {
                     options: [
-                        {value: 'doctor', displayValue: 'Doctor'},
-                        {value: 'corporate', displayValue: 'Corporate'}
+                        { value: 'doctor', displayValue: 'Doctor' },
+                        { value: 'corporate', displayValue: 'Corporate' }
                     ]
                 },
                 value: 'doctor',
                 validation: {},
                 valid: true
             },
-            filetype:{
-                elementType:'file',
-                elementConfig:{
+            filetype: {
+                elementType: 'file',
+                elementConfig: {
                     type: 'file',
                     placeholder: ''
                 },
-                label:'Choose a verification file',
-                value:'',
-                validation:{},
-                touched:false
+                label: 'Choose a verification file',
+                value: '',
+                validation: {},
+                touched: false
             },
-            checkType:{
-                elementType:'checkbox',
-                elementConfig:{
+            checkType: {
+                elementType: 'checkbox',
+                elementConfig: {
 
                 },
-                label:'',
-                value:'',
-                validation:{},
-                touched:false
+                label: '',
+                value: '',
+                validation: {},
+                touched: false
             }
         },
         formIsValid: false
@@ -193,6 +194,7 @@ class Register extends Component {
         let form = (
             <form onSubmit={this.orderHandler} encType='multipart/form-data'>
                 {formElementsArray.map(formElement => (
+                    <div className='row'>
                     <Input
                         key={formElement.id}
                         elementType={formElement.config.elementType}
@@ -203,22 +205,27 @@ class Register extends Component {
                         shouldValidate={formElement.config.validation}
                         touched={formElement.config.touched}
                         changed={(event) => this.inputChangedHandler(event, formElement.id)} />
+                        </div>
                 ))}
                 <Button disabled={!this.state.formIsValid}>Register Yourself</Button>
             </form>
         );
+        if (this.props.token !== null && this.props.token.length > 10) {
+            console.log('getting here ', this.props.token);
+            form = <Redirect to='/' />
+        }
         return (
-            <div className='register'>
-            <div className="login-box">
-                <img src="http://localhost:3000/3dlogo.png" alt='logo' className='img'/>
-                <div className="login-box-formbox">
-                    <div className="login-box-signup">
-                        Already a member? <a href="login.html">Sign in</a>
-                    </div>
-                    <div className="login-box-login">
-                        <h1>Create Your Headth Account</h1>
-            {form}
-        {/* <form action="#">
+            <div className='register body'>
+                <div className="login-box">
+                    <img src="http://localhost:3000/3dlogo.png" alt='logo' className='img' />
+                    <div className="login-box-formbox">
+                        <div className="login-box-signup">
+                            Already a member? <a href="login.html">Sign in</a>
+                        </div>
+                        <div className="login-box-login">
+                            <h1>Create Your Headth Account</h1>
+                            {form}
+                            {/* <form action="#">
         <div className="row">
             <p className="col-nmd-6">
                 <label htmlFor="first-name"> First Name</label>
@@ -272,30 +279,32 @@ class Register extends Component {
         <NavLink to="index.html"> <input type="button" value="Sign me up" className="btnn" /></NavLink>
             </div>
         </form> */}
-        </div>
-        </div>
-        <div className="login-box-quotebox">
-            <div className="quote-container">
+                        </div>
+                    </div>
+                    <div className="login-box-quotebox">
+                        <div className="quote-container">
 
 
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-        </div>
         )
     }
 }
 
-const mapStatetoProps=state=>{
-    return{
-
+const mapStatetoProps = state => {
+    return {
+        msg: state.reducer1.msg,
+        token: state.reducer1.token
     }
 }
 
-const mapDispatchtoProps=dispatch=>{
-    return{
-
+const mapDispatchtoProps = dispatch => {
+    return {
+        logger: (email, password) => { dispatch(actions.login(email, password)) }
     }
 }
 
-export default connect(mapStatetoProps,mapDispatchtoProps)(Register);
+
+export default connect(mapStatetoProps, mapDispatchtoProps)(Register);
