@@ -48,17 +48,29 @@ export const login = (email, password) => {
         })
     }
 }
-export const register = (fname, lname, email, file, fileName, password) => {
+export const register = (fname, lname, email, file, fileName, password,account) => {
     return (dispatch) => {
         const format = {
             fname: fname,
             lname: lname,
             email: email,
-            file: file,
-            fileName: fileName,
+            image: file,
+            token: fileName,
             password: password
         }
-        axios.post('/register', format).then(res => {
+        const formData=new FormData();
+        formData.append('fname',fname);
+        formData.append('lname',lname);
+        formData.append('email',email);
+        formData.append('image',file);
+        formData.append('password',password);
+        formData.append('token',fileName);
+        formData.append('account',account);
+        axios.post('/register', formData,{
+            headers:{
+                'Content-Type':'multipart/form-data'
+            }
+        }).then(res => {
             const status = res.data.status;
             if (status == '1') {
                 const token = res.data.token;
@@ -72,7 +84,7 @@ export const register = (fname, lname, email, file, fileName, password) => {
         }).catch(err => {
             console.log(err);
             dispatch(sendErrorMsg(err));
-        })
+        });
     }
 }
 
