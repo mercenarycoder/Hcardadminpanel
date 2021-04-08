@@ -645,6 +645,8 @@ margin: 0 12px;
 @media screen and (max-width: 415px) {
 .adobe-product .menu {
 display: none;
+margin-top: 5px;
+margin-bottom: 5px;
 }
 }
 .dropdown {

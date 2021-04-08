@@ -5,17 +5,24 @@ import {NavLink} from 'react-router-dom';
 class TopNavigation extends Component{
 
     render(){
-        return (
-            <div className="header">
-            <div className="menu-circle"><img src="http://localhost:3000/3dlogo.png" className='logo-image' />
-            </div>
-            <div className="header-menu">
-                <NavLink className="menu-link is-active notify" to="/" activeClassName="notify" exact>Overview</NavLink>
+        let nav=null;
+        if(this.props.enabled)
+        {
+            nav=(<div>
+                 <NavLink className="menu-link is-active notify" to="/" activeClassName="notify" exact>Overview</NavLink>
                 <NavLink className="menu-link" to="/reports"
                 activeClassName="notify">Reports</NavLink>
                 <NavLink className="menu-link" to="/precriptions"
                 activeClassName="notify">Prescriptions</NavLink>
+            </div>);
+        }
+        return (
+            <div className="header">
+            <div className="menu-circle"><img src="http://localhost:3000/3dlogo.png" className='logo-image' />
             </div>
+                <div className="header-menu">
+                {nav}
+                </div>
             <div className="search-bar">
                 <input type="text" placeholder="Search" />
             </div>
