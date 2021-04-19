@@ -7,6 +7,11 @@ class Searcher extends Component {
         return (
             <div className="row">
                 <div className="search col-md-12">
+                <div className="top-flex">
+                    <button className="clear-btn col-md-4" onClick={()=>this.props.handle('close')}>Back to search</button>
+                    <button className="clear-btn col-md-4" onClick={()=>this.props.handle('setting')}>Setting</button>
+                    <button className="clear-btn col-md-4" onClick={()=>this.props.handle('dashboard')}>Dashboard</button>
+                </div>
                     <label>Search for user</label>
                     <input type="search" onChange={this.props.onchange}
                     

@@ -4,6 +4,13 @@ margin: 0px;
 outline: none;
 box-sizing: border-box;
 }
+.top-flex{
+    display: flex;
+    justify-content: space-between;
+}
+.top-flex > button{
+    flex: 1;
+}
 :root {
 --theme-bg-color: rgba(16 18 27 / 40%);
 --border-color: rgba(113 119 144 / 25%);
