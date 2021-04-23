@@ -94,41 +94,47 @@ class Dashboard extends Component {
                 token: this.props.token,
                 number: number
             }
-
             axios.post('/search', data).then(res => {
                 console.log(res.data);
-                let profile = res.data.profile[0];
-                console.log(res.data.report);
-                let mobile = profile.mobile;
-                let name = profile.name;
-                let height = profile.height;
-                let weight = profile.weight;
-                let blood = profile.blood;
-                let dob = profile.dob;
-                let reports = res.data.report;
-                let prescriptions = res.data.prescription;
-                let medicine = res.data.medicine;
-                let history = res.data.history;
-                let allergy = res.data.allergy;
-                let diesease = res.data.diesease;
-                this.setState({
-                    ...this.state,
-                    profile: {
-                        name: name,
-                        mobile: mobile,
-                        height: height,
-                        weight: weight,
-                        blood: blood,
-                        dob: dob
-                    },
-                    reports: reports,
-                    prescriptions: prescriptions,
-                    history: history,
-                    medicine: medicine,
-                    allergy: allergy,
-                    diesease: diesease,
-                    searched: true
-                })
+                if(res.data.status===1){
+
+                    let profile = res.data.profile[0];
+                    console.log(res.data.report);
+                    let mobile = profile.mobile;
+                    let name = profile.name;
+                    let height = profile.height;
+                    let weight = profile.weight;
+                    let blood = profile.blood;
+                    let dob = profile.dob;
+                    let reports = res.data.report;
+                    let prescriptions = res.data.prescription;
+                    let medicine = res.data.medicine;
+                    let history = res.data.history;
+                    let allergy = res.data.allergy;
+                    let diesease = res.data.diesease;
+                    this.setState({
+                        ...this.state,
+                        profile: {
+                            name: name,
+                            mobile: mobile,
+                            height: height,
+                            weight: weight,
+                            blood: blood,
+                            dob: dob
+                        },
+                        reports: reports,
+                        prescriptions: prescriptions,
+                        history: history,
+                        medicine: medicine,
+                        allergy: allergy,
+                        diesease: diesease,
+                        searched: true
+                    })
+                }
+                else
+                {
+                    console.log(res.data.msg);
+                }
             }).catch(err => {
                 console.log(err);
             });
